@@ -112,6 +112,11 @@ namespace :db do
     require APP_ROOT.join('db', 'seeds.rb')
   end
 
+  desc "Populate the database with LENGTH data by running db/length_seed.rb"
+  task :seed_length do
+    require APP_ROOT.join('db', 'seed_length.rb')
+  end
+
   desc "Returns the current schema version number"
   task :version do
     puts "Current version: #{ActiveRecord::Migrator.current_version}"
