@@ -6,16 +6,28 @@ end
 
 post '/anagram' do
   
-  @sorted_word_array = params[:word].split.sort
+  sorted_word_array = params[:word].split('').sort
 
-  def anagrams(word)
-    same_length_words = Word.where(length: word.length)
-    same_length_words.each
+  # p params[:word]
 
-    end
-  end 
+  # p sorted_word_array
 
-  anagrams(@sorted_word_array)
+  anagrams(sorted_word_array)
 
   erb :anagram_list
 end
+
+
+  def anagrams(sorted_word_array)
+    @anagrams = []
+    same_length_words = Word.where(length: sorted_word_array.length + 1)
+
+    same_length_words.each do |dictionary_word|
+      p dictionary_word[:word].chop.split('').sort
+      if dictionary_word[:word].chop.split('').sort == sorted_word_array
+        @anagrams << dictionary_word[:word]
+      end
+    end
+    p @anagrams
+    @anagrams
+  end 
